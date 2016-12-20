@@ -5,18 +5,13 @@ if (module.hot) {
 }
 
 if(process.env.NODE_ENV == "dev") {
-    console.log("当前环境为dev");
+    console.log("当前环境为" + process.env.NODE_ENV);
 }
 
+// console.log(__DEVAPI__);
 
 import 'babel-polyfill';
-// import Framework7 from 'framework7/js/framework7';
-// import 'framework7/css/framework7.ios.css';
-import 'bootstrap/css/bootstrap.css';
-import 'bootstrap/js/npm.js';
 import Main from './app/main';
 
-$(function() {
-    const main = new Main();
-    main.init();
-});
+const main = new Main();
+main.init();

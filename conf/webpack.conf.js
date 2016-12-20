@@ -3,7 +3,6 @@ const conf = require('./gulp.conf');
 const path = require('path');
 const constants = require('../constants.js');
 
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require('autoprefixer');
@@ -11,7 +10,6 @@ const commonsPlugin = new webpack.optimize.CommonsChunkPlugin( {
     name: 'common'
     // chunks: ['index']
 });
-
 module.exports = {
     module: {
         loaders: [{
@@ -52,8 +50,9 @@ module.exports = {
               //exclude: /(node_modules|bower_components)/,
               loader: "eslint-loader",
             },
-            // {test: /\.html$/,   loader: "html?minimize=false"},
-            // {test: /\.tpl$/, loader: "html?minimize=false"},
+            {test: /\.html$/,   loader: "html?minimize=false&pretty=true"},
+            {test: /\.tpl$/, loader: "html?minimize=false&pretty=true"},
+            { test: /\.jade$/, loader: 'jade?minimize=false&pretty=true' },
             {test: /\.(woff|woff2)$/,   loader: "url?limit=10000&minetype=application/font-woff&name=[path][name].[ext]"},
             {test: /\.ttf$/,    loader: "file?name=[path][name].[ext]"},
             {test: /\.eot$/,    loader: "file?&name=[path][name].[ext]"},
@@ -88,7 +87,7 @@ module.exports = {
         descriptionFiles: ['package.json', 'bower.json'],
         alias: {
             jquery: 'jquery/dist/jquery.js',
-            framework7: 'framework7/dist',
+            f7: 'framework7/dist',
             bootstrap: 'bootstrap/dist',
             styles: path.resolve(constants.ROOT_DIR, './src/scss'),
             modules: path.resolve(constants.ROOT_DIR, './src/app/modules')
@@ -125,10 +124,11 @@ module.exports = {
         //     new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
         // ], ["normal", "loader"]),
         new HtmlWebpackPlugin({
-            template: conf.path.src('index.html'),
+            template: conf.path.src('index.jade'),
             inject: true,
             cache: false,
             hash: true,
+            minify: false,
              // 根据依赖自动排序
             chunksSortMode: 'dependency'
         }),
@@ -162,10 +162,16 @@ module.exports = {
         ,chunkFilename: '[name]-[chunkhash:8].chunk.js'
     },
     entry: {
-         common: ['jquery', 'bootstrap/js/bootstrap.js', 'bootstrap/css/bootstrap.css'],
+         common: [
+             'jquery',
+             'f7/js/framework7.js',
+             'f7/css/framework7.ios.css',
+             'f7/css/framework7.ios.colors.css'
+         ],
          'index': [
             'webpack/hot/dev-server',
-            'webpack-hot-middleware/client',
+             'webpack-hot-middleware/client',
+             // 'webpack-hot-middleware/client?noInfo=true&reload=true',
             `./${conf.path.src('index')}`
         ]
     },

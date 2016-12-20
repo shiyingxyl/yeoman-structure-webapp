@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const gutil = require('gulp-util');
 
 //Gulp-hub will execute that task in all of the gulpfiles.
 const HubRegistry = require('gulp-hub');
@@ -12,20 +13,20 @@ const hub = new HubRegistry([conf.path.tasks('*.js')]);
 // Tell gulp to use the tasks just loaded
 gulp.registry(hub);
 
-gulp.task('build', gulp.parallel('other', 'webpack:dist'));
+gulp.task('build', gulp.parallel('set-test', 'webpack:dist', 'other:dist', 'jade:dist'));
 gulp.task('prepublish', gulp.series('test'));
 
 /*打包部署*/
-gulp.task('default', gulp.series('clean', 'build'));
+gulp.task('default', gulp.series('set-prd', 'clean', 'build'));
 
 /*启动服务,开发*/
-gulp.task("server", gulp.series('webpack:watch', 'watch', 'other', 'browsersync'));
+gulp.task("server", gulp.series('set-dev', 'webpack:watch', 'watch', 'other', 'jade', 'browsersync'));
 
 /*启动服务,测试*/
-gulp.task("server:dist", gulp.series('default', 'browsersync:dist'));
+gulp.task("server:dist", gulp.series('set-prd', 'default', 'browsersync:dist'));
 
-gulp.task('test', gulp.series('karma:single-run'));
-gulp.task('test:auto', gulp.series('karma:auto-run'));
+gulp.task('test', gulp.series('set-test', 'karma:single-run'));
+gulp.task('test:auto', gulp.series('set-test', 'karma:auto-run'));
 
 gulp.task("watch", watch);
 
@@ -35,7 +36,12 @@ function reloadBrowserSync(cb) {
 }
 
 function watch(done) {
-    // gulp.watch(conf.path.tmp('index.html'), reloadBrowserSync);
+    let watcher = gulp.watch( conf.paths.src + '/webapp/*.jade', gulp.series('jade', reloadBrowserSync) );
+    watcher.on('change', function(event, a, b, c) {
+        debugger;
+        gutil.log( gutil.colors.red('File ' + event + ' was changed.') );
+    });
+    gulp.watch(conf.path.tmp('index.html'), reloadBrowserSync);
     done();
 }
 

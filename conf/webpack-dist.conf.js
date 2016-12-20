@@ -52,8 +52,9 @@ module.exports = {
               //exclude: /(node_modules|bower_components)/,
               loader: "eslint-loader",
             },
-            // {test: /\.html$/,   loader: "html?minimize=false"},
-            // {test: /\.tpl$/, loader: "html?minimize=false"},
+            {test: /\.html$/,   loader: "html?minimize=false"},
+            {test: /\.tpl$/, loader: "html?minimize=false"},
+            { test: /\.jade$/, loader: 'jade' },
             {test: /\.(woff|woff2)$/,   loader: "url?limit=10000&minetype=application/font-woff&name=[path][name].[ext]"},
             {test: /\.ttf$/,    loader: "file?name=[path][name].[ext]"},
             {test: /\.eot$/,    loader: "file?&name=[path][name].[ext]"},
@@ -88,7 +89,7 @@ module.exports = {
         descriptionFiles: ['package.json', 'bower.json'],
         alias: {
             jquery: 'jquery/dist/jquery.js',
-            framework7: 'framework7/dist',
+            f7: 'framework7/dist',
             bootstrap: 'bootstrap/dist',
             styles: path.resolve(constants.ROOT_DIR, './src/scss'),
             modules: path.resolve(constants.ROOT_DIR, './src/app/modules')
@@ -106,7 +107,7 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"dev"',
+            'process.env.NODE_ENV': '"prd"',
             __DEVAPI__: "/devApi/"
         }),
         new webpack.ProvidePlugin({
@@ -125,7 +126,7 @@ module.exports = {
         //     new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
         // ], ["normal", "loader"]),
         new HtmlWebpackPlugin({
-            template: conf.path.src('index.html'),
+            template: conf.path.src('index.jade'),
              // chunks: ['common', 'index'],
             inject: true,
             // cache: false,
@@ -163,7 +164,12 @@ module.exports = {
         ,chunkFilename: '[name]-[chunkhash:8].chunk.js'
     },
     entry: {
-         common: ['jquery', 'bootstrap/js/bootstrap.js', 'bootstrap/css/bootstrap.css'],
+        common: [
+            'jquery',
+            'f7/js/framework7.js',
+            'f7/css/framework7.ios.css',
+            'f7/css/framework7.ios.colors.css'
+        ],
          'index': [
             `./${conf.path.src('index')}`
         ]

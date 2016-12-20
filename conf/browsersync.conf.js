@@ -17,7 +17,7 @@ var filter = function(pathname, req) {
 };
 
 /**
- * Configure proxy middleware
+ * Configbxure proxy middleware
  */
 var jsonPlaceholderProxy = proxy(filter, {
     //target: 'http://127.0.0.1:8080',
@@ -53,7 +53,11 @@ module.exports = function() {
                     publicPath: webpackConf.output.publicPath,
 
                     // Quiet verbose output in console
-                    quiet: true
+                    quiet: true,
+                    stats: {
+                        colors: true,
+                        chunks: false
+                    }
                 }),
 
                 // bundler should be the same as above
