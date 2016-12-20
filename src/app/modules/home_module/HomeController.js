@@ -1,13 +1,16 @@
 import HomeService from "./HomeService";
+import jade from './home.jade';
 class HomeController {
     constructor() {
         this.homeService = new HomeService();
     }
 
     render() {
-        var content = this.homeService.toString();
-        $('#myContainer').html(content);
+        let content = this.homeService.getData();
+        let tpl = jade(content);
+        $('#myContainer').html(tpl);
     }
 }
+
 
 module.exports = HomeController;

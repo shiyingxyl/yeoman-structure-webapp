@@ -52,8 +52,9 @@ module.exports = {
               //exclude: /(node_modules|bower_components)/,
               loader: "eslint-loader",
             },
-            // {test: /\.html$/,   loader: "html?minimize=false"},
-            // {test: /\.tpl$/, loader: "html?minimize=false"},
+            {test: /\.html$/,   loader: "html?minimize=false"},
+            {test: /\.tpl$/, loader: "html?minimize=false"},
+            { test: /\.jade$/, loader: 'jade' },
             {test: /\.(woff|woff2)$/,   loader: "url?limit=10000&minetype=application/font-woff&name=[path][name].[ext]"},
             {test: /\.ttf$/,    loader: "file?name=[path][name].[ext]"},
             {test: /\.eot$/,    loader: "file?&name=[path][name].[ext]"},
@@ -106,7 +107,7 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"dev"',
+            'process.env.NODE_ENV': '"prd"',
             __DEVAPI__: "/devApi/"
         }),
         new webpack.ProvidePlugin({
@@ -116,8 +117,13 @@ module.exports = {
         commonsPlugin,
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.NoErrorsPlugin(),
+        // new webpack.optimize.AggressiveMergingPlugin({
+        //     minSizeReduce: 1.5,
+        //     moveToParents: true
+        // }),
          /*
          * Search for equal or similar files and deduplicate them in the output
+         * Don't use it in watch mode. Only for production builds.
          * （删除重复依赖的文件）
          */
         // new webpack.optimize.DedupePlugin(),
@@ -125,7 +131,7 @@ module.exports = {
         //     new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
         // ], ["normal", "loader"]),
         new HtmlWebpackPlugin({
-            template: conf.path.src('index.html'),
+            template: conf.path.src('index.jade'),
              // chunks: ['common', 'index'],
             inject: true,
             // cache: false,
