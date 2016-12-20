@@ -17,7 +17,7 @@ export default class Router {
     }
 
     initLocation() {
-        var self = this;
+        let self = this;
         $(document).on('click', 'a', function(evt) {
             evt.preventDefault();
             let $a = $(this);
@@ -72,7 +72,7 @@ export default class Router {
 
     //init 监听浏览器url hash更新事件
     init() {
-        var self = this;
+        let self = this;
         if(this.h5Flg) {
             self.initLocation();
             window.addEventListener("popstate", function() {

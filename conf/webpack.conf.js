@@ -52,8 +52,9 @@ module.exports = {
               //exclude: /(node_modules|bower_components)/,
               loader: "eslint-loader",
             },
-            // {test: /\.html$/,   loader: "html?minimize=false"},
-            // {test: /\.tpl$/, loader: "html?minimize=false"},
+            {test: /\.html$/,   loader: "html?minimize=false"},
+            {test: /\.tpl$/, loader: "html?minimize=false"},
+            { test: /\.jade$/, loader: 'jade' },
             {test: /\.(woff|woff2)$/,   loader: "url?limit=10000&minetype=application/font-woff&name=[path][name].[ext]"},
             {test: /\.ttf$/,    loader: "file?name=[path][name].[ext]"},
             {test: /\.eot$/,    loader: "file?&name=[path][name].[ext]"},
@@ -125,7 +126,7 @@ module.exports = {
         //     new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
         // ], ["normal", "loader"]),
         new HtmlWebpackPlugin({
-            template: conf.path.src('index.html'),
+            template: conf.path.src('index.jade'),
             inject: true,
             cache: false,
             hash: true,

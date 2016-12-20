@@ -3,6 +3,13 @@ class HomeService {
 
     }
 
+    getData() {
+        return {
+            title: "home",
+            content: "home page"
+        };
+    }
+
     toString() {
         return 'home page';
     }
