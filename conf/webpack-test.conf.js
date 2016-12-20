@@ -39,6 +39,7 @@ module.exports = {
         },
         {test: /\.html$/,   loader: "html?minimize=false"},
         {test: /\.tpl$/, loader: "html?minimize=false"},
+        { test: /\.jade$/, loader: 'jade' },
         {test: /\.(woff|woff2)$/,   loader: "url?limit=10000&minetype=application/font-woff&name=[path][name].[ext]"},
         {test: /\.ttf$/,    loader: "file?name=[path][name].[ext]"},
         {test: /\.eot$/,    loader: "file?&name=[path][name].[ext]"},
@@ -58,7 +59,7 @@ module.exports = {
         descriptionFiles: ['package.json', 'bower.json'],
         alias: {
             jquery: 'jquery/dist/jquery.js',
-            framework7: 'framework7/dist',
+            f7: 'framework7/dist',
             styles: path.resolve(constants.ROOT_DIR, './src/scss'),
              modules: path.resolve(constants.ROOT_DIR, './src/app/modules')
             // images: path.join(constants.ROOT_DIR, "./img"),

@@ -5,6 +5,6 @@
     "allowImportExportEverywhere": false
   },
   "rules": {
-    no-unused-vars: [1, {vars: local}]
+    no-unused-vars: [0, {vars: local}]
   }
 }

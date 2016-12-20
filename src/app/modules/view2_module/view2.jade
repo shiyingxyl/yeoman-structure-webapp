@@ -1,0 +1,23 @@
+// Second view (for second wrap)
+.view.tab#view-2
+   // We can make with view with navigation, let's add Top Navbar
+   .navbar
+        .navbar-inner
+            .center.sliding Second View
+   .pages.navbar-through
+        .page(data-page="index-2")
+            .page-content
+                .content-block
+                    p This is a second view. Lets, for example, have here some internal pages with navbar navigation
+                .list-block
+                    ul
+                        li
+                           a(href="webapp/view5.html?pageId=page5").item-link
+                                .item-content
+                                    .item-inner
+                                        .item-title View 5
+                        li
+                            a(href="webapp/view6.html").item-link
+                                .item-content
+                                    .item-inner
+                                        .item-title View 6

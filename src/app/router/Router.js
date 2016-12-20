@@ -1,90 +1,89 @@
-export default class Router {
-    constructor(opt={}) {
-        this.root = opt.root ? opt.root : "";
-        this.routes = {}; //路由表
-        this.currentUrl = "";
-        this.h5Flg = false;
-        if(window.history.pushState) {
-            this.h5Flg = true;
-        }
-    }
-
-    //route 存储路由更新时的回调到回调数组routes中，回调函数将负责对页面的更新
-    //path like /home
-    route(path, callback) {
-        //给不同的hash设置不同的回调函数
-        this.routes[path] = callback || function(){};
-    }
-
-    initLocation() {
-        var self = this;
-        $(document).on('click', 'a', function(evt) {
-            evt.preventDefault();
-            let $a = $(this);
-            let href = $a.attr('href');
-            let title = $a.attr('title');
-
-            document.title = title;
-            window.history.pushState(
-                { title: title },
-                title,
-                window.location.origin + self.root + href
-            );
-
-            self.routes[href.replace("#", "/")]();
-
-            return false;
+class Router {
+    constructor() {
+        let self = this;
+        $$(document).on('pageBeforeInit', function (e) {
+            let page = e.detail.page;
+            self.pageBeforeInit(page);
         });
+
+        $$(document).on('pageAfterAnimation', function (e) {
+            let page = e.detail.page;
+            self.pageAfterAnimation(page);
+        });
+
+        $$(document).on('pageBeforeAnimation', function (e) {
+            let page = e.detail.page;
+            self.pageBeforeAnimation(page);
+        });
+
+        $('#view-1').on('show', function (evt) {
+
+        });
+        $('#view-2').on('show', function (evt) {
+
+        });
+        $('#view-3').on('show', function (evt) {
+
+        });
+        $('#view-4').on('show', function (evt) {
+
+        });
+
+        $$('.panel-left').on('panel:opened', function () {
+            // app.alert('Left panel opened!');
+        });
+        $$('.panel-left').on('panel:close', function () {
+            // app.alert('Left panel is closing!');
+        });
+        $$('.panel-right').on('panel:open', function () {
+            // app.alert('Right panel is opening!');
+        });
+        $$('.panel-right').on('panel:closed', function () {
+            // app.alert('Right panel closed!');
+        });
+
+
     }
 
-    navigate(url, title) {
-        if(this.h5Flg) {
-            window.history.pushState(
-                { title: title },
-                title,
-                window.location.origin + this.root  + Router.HASH_SEP + url.slice(1)
-            );
-            this.routes[url]();
-            return;
+    pageBeforeAnimation(page) {
+        let name = page.name;
+        let from = page.from;
+    }
+
+    pageAfterAnimation(page){
+        let name = page.name;
+        let from = page.from;
+    }
+
+    pageBeforeInit(page) {
+        let name = page.name;
+        let query = page.query;
+        switch (name) {
+            case 'page-1':
+                break;
+            case 'page-2':
+                break;
+            case 'page-3':
+                break;
+            case 'page-4':
+                break;
+            case 'page-5':
+                require.ensure([], () => {
+                    let View5Controller = require('modules/view5_module/View5Controller');
+                    let view5Controller = new View5Controller(page);
+                    view5Controller.render();
+                }, 'page5');
+                break;
+            case 'page-6':
+                break;
+            default:
         }
 
-        window.location.href = window.location.origin + this.root + Router.HASH_SEP + url.slice(1);
-        this.routes[url]();
     }
 
-    //refresh 执行当前url对应的回调函数，更新页面
-    refresh() {
-        if(this.h5Flg) {
-            this.currentUrl = Router.H5_SEP + window.location.hash.slice(1);
-            this.routes[this.currentUrl]();
-            return;
-        }
-        console.log(location.hash.slice(1));//获取到相应的hash值
-        this.currentUrl = Router.H5_SEP + location.hash.slice(1) || '/';//如果存在hash值则获取到，否则设置hash值为/
-        // console.log(this.currentUrl);
-        this.routes[this.currentUrl]();//根据当前的hash值来调用相对应的回调函数
-    }
-
-    popstate() {
-        this.currentUrl =location.hash.replace("#", "/");
-        this.routes[this.currentUrl]();
-    }
-
-    //init 监听浏览器url hash更新事件
     init() {
-        var self = this;
-        if(this.h5Flg) {
-            self.initLocation();
-            window.addEventListener("popstate", function() {
-                self.popstate();
-            });
-        } else {
-            window.addEventListener('hashchange', this.refresh.bind(this), false);
-        }
 
-        this.refresh();
     }
 }
 
-Router.HASH_SEP = "#";
-Router.H5_SEP = "/";
+export default Router;

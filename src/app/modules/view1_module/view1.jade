@@ -1,0 +1,17 @@
+// Your first view, it is also a .tab and should have "active" class to make it visible by default
+.view.view-main.tab.active#view-1
+    // Pages
+    .pages
+        // Page, data-page contains page name
+        .page(data-page="index-1")
+            // Scrollable page content
+            .page-content
+                .content-block-title Welcome
+                .content-block
+                    p This is an example of tab bar application layout. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.
+                    p Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.
+                    p And of course, your favorite panels are still here:
+                        a(href="#").open-panel left
+                        |  and
+                        a(href="#", data-panel="right").open-panel right
+                    p Icons and their labels in tab bar below are just for example and don't related to their content.

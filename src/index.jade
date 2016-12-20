@@ -1,0 +1,31 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui")
+        meta(name='apple-mobile-web-app-capable', content='yes')
+        meta(name="apple-mobile-web-app-status-bar-style", content="black")
+        title yeoman-structure-webapp
+    body
+        // Status bar overlay for fullscreen mode
+        .statusbar-overlay
+
+        // Panels overlay
+        .panel-overlay
+        // Left panel with reveal effect
+        .panel.panel-left.panel-reveal
+            .content-block
+                p Left panel content goes here
+        // Right panel with cover effect
+        .panel.panel-right.panel-cover
+            .content-block
+                p Right panel content goes here
+
+        // Views, and they are tabs
+        // We need to set "toolbar-through" class on it to keep space for our tab bar
+        .views.tabs.toolbar-through
+           include ./app/modules/view1_module/view1.jade
+           include ./app/modules/view2_module/view2.jade
+           include ./app/modules/view3_module/view3.jade
+           include ./app/modules/view4_module/view4.jade
+           include ./app/modules/toolbar_module/toolbar.jade
