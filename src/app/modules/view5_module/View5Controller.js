@@ -1,4 +1,5 @@
 import View5Service from "./View5Service";
+import './view5.scss';
 class View1Controller {
     constructor(page) {
         this.view5Service = new View5Service();

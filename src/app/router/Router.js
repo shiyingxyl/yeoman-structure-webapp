@@ -68,9 +68,12 @@ class Router {
             case 'page-4':
                 break;
             case 'page-5':
+                let view5Controller;
                 require.ensure([], () => {
-                    let View5Controller = require('modules/view5_module/View5Controller');
-                    let view5Controller = new View5Controller(page);
+                    if(!!!view5Controller) {
+                        let View5Controller = require('modules/view5_module/View5Controller');
+                        view5Controller = new View5Controller(page);
+                    }
                     view5Controller.render();
                 }, 'page5');
                 break;

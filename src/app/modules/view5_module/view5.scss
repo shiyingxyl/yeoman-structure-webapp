@@ -1,0 +1,16 @@
+@mixin border-radius($radius) {
+    border-radius: $radius;
+}
+
+.box {
+    @include border-radius(10px);
+}
+
+.display-flex {
+    display: flex;
+}
+
+.item {
+    display:flex;
+    flex-flow:row wrap;
+}
