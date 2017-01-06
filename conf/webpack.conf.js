@@ -117,11 +117,14 @@ module.exports = {
         commonsPlugin,
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.NoErrorsPlugin(),
+        // new webpack.optimize.AggressiveMergingPlugin({
+        //     minSizeReduce: 1.5,
+        //     moveToParents: true
+        // }),
          /*
          * Search for equal or similar files and deduplicate them in the output
          * （删除重复依赖的文件）
          */
-        // new webpack.optimize.DedupePlugin(),
         // new webpack.ResolverPlugin([
         //     new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
         // ], ["normal", "loader"]),

@@ -107,7 +107,7 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"dev"',
+            'process.env.NODE_ENV': '"prd"',
             __DEVAPI__: "/devApi/"
         }),
         new webpack.ProvidePlugin({
@@ -117,8 +117,13 @@ module.exports = {
         commonsPlugin,
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.NoErrorsPlugin(),
+        // new webpack.optimize.AggressiveMergingPlugin({
+        //     minSizeReduce: 1.5,
+        //     moveToParents: true
+        // }),
          /*
          * Search for equal or similar files and deduplicate them in the output
+         * Don't use it in watch mode. Only for production builds.
          * （删除重复依赖的文件）
          */
         // new webpack.optimize.DedupePlugin(),

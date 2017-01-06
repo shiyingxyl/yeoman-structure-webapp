@@ -1,3 +1,4 @@
+
 # yeoman-structure-webapp [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > Relational Structure／Modularity
 
@@ -18,6 +19,12 @@ yeomanStructureWebapp('Rainbow');
 
  © [yulong.xu](https://github.com/shiyingxyl)
 
+## help 
+ [help1](https://webpack.github.io/docs/code-splitting.html)
+ [help2](http://jonathancreamer.com/advanced-webpack-part-2-code-splitting/)
+ [help3](http://blog.csdn.net/zhbhun/article/details/46826129)
+ [help4](https://webpack.js.org/guides/code-splitting-require/)
+ [help5](http://stephenzhao.github.io/webpack-cn/docs/code-splitting.html)
 
 [npm-image]: https://badge.fury.io/js/yeoman-structure-webapp.svg
 [npm-url]: https://npmjs.org/package/yeoman-structure-webapp
