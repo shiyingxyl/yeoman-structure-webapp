@@ -1,6 +1,6 @@
 import View5Service from "./View5Service";
 import './view5.scss';
-class View1Controller {
+class View5Controller {
     constructor(page) {
         this.view5Service = new View5Service();
         this.$pageNavbar = $(page.navbarInnerContainer);
@@ -17,4 +17,4 @@ class View1Controller {
     }
 }
 
-module.exports = View1Controller;
+module.exports = View5Controller;
